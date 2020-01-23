@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600; /* double dash is convention for variables in vanilla CSS */
+      --spacing: 10px; 
+      --blur: 10px; 
+    }
+
+    img {
+      padding: var(--spacing); /* this is how you call variables */
+      background: var(--base); 
+      filter: blur(var(--blur)); 
+    }
+
+    .h1 {
+      color: var(--base); 
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +60,21 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input')
+
+
+    function handleUpdate() {
+      console.log(this.value); // THIS EQUALS THE ELEMENT THAT THE EVEN LISTENER IS CALLED ON, 'input' in this example
+      const suffix = this.dataset.sizing || '';  // this contains all of the data objects from that specific element (the inputs in this case); 
+      
+      // SELECTING A VARIABLE
+      console.log(this.name); 
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix); 
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate)); 
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate)); 
+
   </script>
 
 </body>
